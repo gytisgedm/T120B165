@@ -25,7 +25,7 @@ Registruoti ilgalaikio turto naudotojus, palengvinti darbuotojų, kurie atsaking
  •		Sistemos administratorius 
   1.	Sukurti naujus darbuotojus.
   2.	Priskirti darbuotojams ilgalaikio turto kategorijas, už kurias jie bus atsakingi.
-  3.	Šalinti/keisti priskirtas kategorijų priskyrimus, pašalinti darbuotojus, keisti darbuotojų skyrių.
+  3.	Šalinti/keisti priskirtas kategorijų priskyrimus, pašalinti darbuotojus, pridėti adminstratoriaus teises darbuotojams.
 
 
 #	Sistemos architektūra
