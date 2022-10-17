@@ -2976,11 +2976,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gytis_21l6q0a\\source\\repos\\api\\api\\api.csproj",
+      "projectUniqueName": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\.vs\\T120B165\\api\\api\\api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\Users\\gytis_21l6q0a\\source\\repos\\api\\api\\api.csproj",
+      "projectPath": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\.vs\\T120B165\\api\\api\\api.csproj",
       "packagesPath": "C:\\Users\\gytis_21l6q0a\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gytis_21l6q0a\\source\\repos\\api\\api\\obj\\",
+      "outputPath": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\.vs\\T120B165\\api\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gytis_21l6q0a\\AppData\\Roaming\\NuGet\\NuGet.Config",

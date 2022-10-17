@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Uw3YbwDD8AZymlkIyRN5wSCitIGzj1FYkJNSz6HoW1W7/1b2ZcR8vyOuI+kKozDa68md/Y7qxBEV0KlCmA2p+Q==",
+  "dgSpecHash": "BwF1lnA/G+yhFsXT3S7Pt99YQH+QN0Ge2wb88f8R6tePvmi5PJsMtTM0ow4IM5JrKEJzdCQ4e7ChOTWonoR38w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gytis_21l6q0a\\source\\repos\\Api\\api\\api.csproj",
+  "projectFilePath": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\.vs\\T120B165\\api\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gytis_21l6q0a\\.nuget\\packages\\chinchilla.logging\\4.5.29\\chinchilla.logging.4.5.29.nupkg.sha512",
     "C:\\Users\\gytis_21l6q0a\\.nuget\\packages\\chinchilla.statemanagement\\4.2.5\\chinchilla.statemanagement.4.2.5.nupkg.sha512",
