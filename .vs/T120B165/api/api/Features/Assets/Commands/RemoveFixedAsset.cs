@@ -16,10 +16,16 @@ public class RemoveFixedAsset : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPut]
+    [HttpDelete]
     public async Task<IActionResult> Assign([FromRoute] string code)
     {
-        return Ok(await _mediator.Send(new RemoveFixedAssetCommand(code)));
+        var command = new RemoveEmployeeCommand(code);
+        if (command == null)
+            return BadRequest();
+        bool completed = await _mediator.Send(command);
+        if (completed)
+            return Ok();
+        else return NotFound();
     }
 }
 
@@ -46,8 +52,10 @@ public class RemoveFixedAssetCommandHandler : IRequestHandler<RemoveFixedAssetCo
     {
         var asset = _db.FixedAssets.Where(e => e.Code == request.Code).FirstOrDefault();
         if (asset == null)
-            throw new ArgumentNullException(nameof(asset));
-        asset.IsSold = true; 
+            return false;
+        //asset.IsSold = true; 
+
+        _db.FixedAssets.Remove(asset);
 
         await _db.SaveChangesAsync(cancellationToken);
 

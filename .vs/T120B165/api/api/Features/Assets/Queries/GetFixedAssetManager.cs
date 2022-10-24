@@ -17,9 +17,13 @@ public class GetFixedAssetManager : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromRoute] string username) =>
-       Ok(await _mediator.Send(new GetFixedAssetManagerQuery(username)));
-
+    public async Task<IActionResult> Get([FromRoute] string username)
+    {
+        var query = new GetFixedAssetManagerQuery(username);
+        if (query == null)
+            return BadRequest();
+        return Ok(await _mediator.Send(query));
+    }
 }
 
 public class GetFixedAssetManagerQuery : IRequest<IEnumerable<FixedAssetManagerViewModel>>
@@ -28,7 +32,7 @@ public class GetFixedAssetManagerQuery : IRequest<IEnumerable<FixedAssetManagerV
 
     public GetFixedAssetManagerQuery(string username)
     {
-        Username = username ?? throw new ArgumentNullException(nameof(username));
+        Username = username; //?? throw new ArgumentNullException(nameof(username));
     }
 }
 

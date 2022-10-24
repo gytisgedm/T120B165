@@ -19,6 +19,8 @@ public class AddEmployee : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] AddEmployeeCommand command)
     {
+        if (command == null)
+            return BadRequest();
         return Ok(await _mediator.Send(command));
     }
 }

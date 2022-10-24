@@ -19,6 +19,8 @@ public class AddFixedAsset : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] AddFixedAssetCommand command)
     {
+        if (command == null)
+            return BadRequest();
         return Ok(await _mediator.Send(command));
     }
 }

@@ -3,6 +3,7 @@ using api.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace api.Features.Assets.Queries;
 
@@ -17,8 +18,13 @@ public class GetFixedAsset : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAssignedAssets([FromRoute] string code) =>
-        Ok(await _mediator.Send(new GetFixedAssetQuery(code)));
+    public async Task<IActionResult> GetAssignedAssets([FromRoute] string code)
+    {
+        var query = new GetFixedAssetQuery(code);
+        if (query == null)
+            return BadRequest();
+        return Ok(await _mediator.Send(query));
+    }   
 
 }
 
@@ -28,7 +34,7 @@ public class GetFixedAssetQuery : IRequest<IEnumerable<AssignedAssetSummaryViewM
 
     public GetFixedAssetQuery(string code)
     {
-        Code = code ?? throw new ArgumentNullException(nameof(code));
+        Code = code; //?? throw new ArgumentNullException(nameof(code));
     }
 }
 

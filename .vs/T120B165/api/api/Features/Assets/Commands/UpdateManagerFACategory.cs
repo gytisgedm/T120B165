@@ -19,7 +19,12 @@ public class UpdateManagerFACategory : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateManagerFACategoryCommand command)
     {
-        return Ok(await _mediator.Send(command));
+        if (command == null)
+            return BadRequest();
+        bool completed = (await _mediator.Send(command));
+        if (completed)
+            return Ok();
+        else return NotFound();
     }
 }
 
@@ -44,7 +49,7 @@ public class UpdateManagerFACategoryCommandHandler : IRequestHandler<UpdateManag
         var manager = _db.FixedAssetManagers.Where(m => m.Username == request.Username && m.FACategory == request.CurrentCategory).FirstOrDefault();
 
         if (manager == null)
-            throw new ArgumentNullException(nameof(manager));
+            return false;
 
         _db.FixedAssetManagers.Remove(manager);
         await _db.SaveChangesAsync(cancellationToken);

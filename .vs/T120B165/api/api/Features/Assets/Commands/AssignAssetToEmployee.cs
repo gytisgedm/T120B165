@@ -19,7 +19,12 @@ public class AssignAssetToEmployee : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] AssignAssetToEmployeeCommand command)
     {
-        return Ok(await _mediator.Send(command));
+        if (command == null)
+            return BadRequest();
+        bool completed = (await _mediator.Send(command));
+        if (completed)
+            return Ok();
+        else return NotFound();
     }
 }
 
@@ -43,7 +48,11 @@ public class AssignAssetToEmployeeCommandHandler : IRequestHandler<AssignAssetTo
     {
         var asset = _db.FixedAssets.Where(e => e.Code == request.Code).FirstOrDefault();
         if (asset == null)
-            throw new ArgumentNullException(nameof(asset));
+            return false;
+        if (_db.Employees.Where(e => e.Username == request.AssignTo).Count() == 0)
+            return false;
+        if (_db.FixedAssetManagers.Where(e => e.Username == request.AssignedBy).Count() == 0)
+            return false;
         asset.AssignedBy = request.AssignedBy;
         asset.AssignedTo = request.AssignTo;
 

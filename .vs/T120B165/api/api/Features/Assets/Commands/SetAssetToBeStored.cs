@@ -19,6 +19,8 @@ public class SetAssetToBeStored : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Store([FromBody] SetAssetToBeStoredCommand command)
     {
+        if (command == null)
+            return BadRequest();
         return Ok(await _mediator.Send(command));
     }
 }

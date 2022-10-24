@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Features.Assets.Queries;
 
-[Route("/fixed-assets/{username}")]
+[Route("assigned/{username}/fixed-assets")]
 public class GetMyAssignedAssets : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -17,9 +17,13 @@ public class GetMyAssignedAssets : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAssignedAssets([FromRoute] string username) =>
-        Ok(await _mediator.Send(new GetMyAssignedAssetsQuery(username)));
-
+    public async Task<IActionResult> GetAssignedAssets([FromRoute] string username) 
+    {
+        var query = new GetMyAssignedAssetsQuery(username); ;
+        if (query == null)
+            return BadRequest();
+        return Ok(await _mediator.Send(query));
+    }
 }
 
 public class AssignedAssetSummaryViewModel
@@ -38,7 +42,7 @@ public class GetMyAssignedAssetsQuery : IRequest<IEnumerable<AssignedAssetSummar
 
     public GetMyAssignedAssetsQuery(string username)
     {
-        Username = username ?? throw new ArgumentNullException(nameof(username));
+        Username = username; //?? throw new ArgumentNullException(nameof(username));
     }
 }
 

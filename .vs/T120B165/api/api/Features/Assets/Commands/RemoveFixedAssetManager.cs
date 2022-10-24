@@ -19,7 +19,12 @@ public class RemoveFixedAssetManager : ControllerBase
     [HttpDelete]
     public async Task<IActionResult> Remove([FromBody] RemoveAssetManagerCommand command)
     {
-        return Ok(await _mediator.Send(command));
+        if (command == null)
+            return BadRequest();
+        bool completed = (await _mediator.Send(new RemoveAssetManagerCommand()));
+        if (completed)
+            return Ok();
+        else return NotFound();
     }
 }
 
@@ -40,6 +45,9 @@ public class RemoveFixedAssetManagerCommandHandler : IRequestHandler<RemoveAsset
 
     public async Task<bool> Handle(RemoveAssetManagerCommand request, CancellationToken cancellationToken)
     {
+        var asset = _db.FixedAssetManagers.Where(e => e.Username == request.Username && e.FACategory == request.FACategory).FirstOrDefault();
+        if (asset == null)
+            return false;
         _db.FixedAssetManagers.Remove(new FixedAssetManager() 
         {
             Username = request.Username,

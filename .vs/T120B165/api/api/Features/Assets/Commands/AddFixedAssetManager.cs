@@ -19,7 +19,12 @@ public class AddFixedAssetManager : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] AddFixedAssetManagerCommand command)
     {
-        return Ok(await _mediator.Send(command));
+        if (command == null)
+            return BadRequest();
+        bool completed = await _mediator.Send(command);
+        if (completed)
+            return Ok();
+        else return BadRequest();
     }
 }
 
@@ -40,6 +45,12 @@ public class AddFixedAssetManagerCommandHandler : IRequestHandler<AddFixedAssetM
 
     public async Task<bool> Handle(AddFixedAssetManagerCommand request, CancellationToken cancellationToken)
     {
+        var categories = _db.FixedAssets.Select(a => a.Class);
+        if (!categories.Contains(request.FACategory))
+        {
+            return false; // Not quite right
+        }
+
         var manager = new FixedAssetManager()
         {
             Username = request.Username,

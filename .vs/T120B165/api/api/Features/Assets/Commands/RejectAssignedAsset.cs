@@ -19,6 +19,8 @@ public class RejectAssignedAsset : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Reject([FromBody] RejectAssignedAssetCommand command)
     {
+        if (command == null)
+            return BadRequest();
         return Ok(await _mediator.Send(command));
     }
 }

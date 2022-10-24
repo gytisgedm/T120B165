@@ -17,8 +17,14 @@ public class GetEmployee : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromRoute] string username) =>
-       Ok(await _mediator.Send(new GetEmployeeQuery(username)));
+    public async Task<IActionResult> Get([FromRoute] string username) 
+    {
+        var query = new GetEmployeeQuery(username);
+        if (query == null)
+            return BadRequest();
+        return Ok(await _mediator.Send(query));
+    }
+       
 }
 
 public class GetEmployeeQuery : IRequest<IEnumerable<EmployeeSummaryViewModel>>
@@ -27,7 +33,7 @@ public class GetEmployeeQuery : IRequest<IEnumerable<EmployeeSummaryViewModel>>
 
     public GetEmployeeQuery(string username)
     {
-        Username = username ?? throw new ArgumentNullException(nameof(username));
+        Username = username; //?? throw new ArgumentNullException(nameof(username));
     }
 }
 

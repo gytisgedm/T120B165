@@ -19,7 +19,12 @@ public class UpdateEmployeeAdminRights : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateEmployeeAdminRightsCommand command)
     {
-        return Ok(await _mediator.Send(command));
+        if (command == null)
+            return BadRequest();
+        bool completed = (await _mediator.Send(command));
+        if (completed)
+            return Ok();
+        else return NotFound();
     }
 }
 
@@ -43,7 +48,7 @@ public class UpdateEmployeeAdminRightsCommandHandler : IRequestHandler<UpdateEmp
         var employee = _db.Employees.Where(e => e.Username == request.Username).FirstOrDefault();
 
         if (employee == null)
-            throw new ArgumentNullException(nameof(employee));
+            return false;
 
         employee.IsAdmin = request.IsAdmin;
 

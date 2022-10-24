@@ -3,6 +3,7 @@ using api.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace api.Features.Assets.Commands;
 
@@ -16,10 +17,16 @@ public class RemoveEmployee : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPut]
+    [HttpDelete]
     public async Task<IActionResult> Remove([FromRoute] string username)
     {
-        return Ok(await _mediator.Send(new RemoveEmployeeCommand(username)));
+        var command = new RemoveEmployeeCommand(username);
+        if (command == null)
+            return BadRequest();
+        bool completed = await _mediator.Send(command);
+        if (completed)
+            return Ok();
+        else return NotFound();
     }
 }
 
@@ -47,9 +54,11 @@ public class RemoveEmployeeCommandHandler : IRequestHandler<RemoveEmployeeComman
         var employee = _db.Employees.Where(e => e.Username == request.Username).FirstOrDefault();
 
         if (employee == null)
-            throw new ArgumentNullException(nameof(employee));
+            return false;
 
-        employee.ContractTerminated = true; 
+        _db.Employees.Remove(employee);
+
+        //employee.ContractTerminated = true; 
 
         await _db.SaveChangesAsync(cancellationToken);
 

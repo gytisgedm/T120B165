@@ -19,6 +19,8 @@ public class InitiateReturn : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Return([FromBody] InitiateReturnCommand command)
     {
+        if (command == null)
+            return BadRequest();
         return Ok(await _mediator.Send(command));
     }
 }
