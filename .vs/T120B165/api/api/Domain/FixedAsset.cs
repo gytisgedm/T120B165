@@ -10,7 +10,7 @@
         public string? AssignedBy { get; set; }
         public string? SerialNumber { get; set; }
         public DateTime? BoughtAt { get; set; }
-        public bool IsSold { get; set; } = false;
+        //public bool IsSold { get; set; } = false;
 
         public ICollection<FixedAssetEvent> Events { get; set; }
     }

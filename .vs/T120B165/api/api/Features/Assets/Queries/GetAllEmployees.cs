@@ -50,7 +50,7 @@ public class GetAllEmployeesHandler : IRequestHandler<GetAllEmployeesQuery, IEnu
 
     public async Task<IEnumerable<EmployeeSummaryViewModel>> Handle(GetAllEmployeesQuery request, CancellationToken cancellationToken)
     {
-        return _db.Employees.Where(e => e.ContractTerminated == false).Select(e => new EmployeeSummaryViewModel()
+        return _db.Employees.Select(e => new EmployeeSummaryViewModel()
         {
             Username = e.Username,
             Name = e.Name,

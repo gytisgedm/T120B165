@@ -59,7 +59,7 @@ public class GetMyManagedAssetsHandler : IRequestHandler<GetMyManagedAssetsQuery
     {
         var assets = await _db.FixedAssets
             .Include(x => x.Events)
-            .Where(a => a.ManagedBy == request.Username && a.IsSold == false)
+            .Where(a => a.ManagedBy == request.Username)
             .ToListAsync(cancellationToken: cancellationToken);
 
         return assets.Select(a => new ManagedAssetSummaryViewModel()

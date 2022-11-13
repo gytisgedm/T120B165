@@ -59,7 +59,7 @@ public class GetMyAssignedAssetsHandler : IRequestHandler<GetMyAssignedAssetsQue
     {
         var assets = await _db.FixedAssets
             .Include(x => x.Events)
-            .Where(a => a.AssignedTo == request.Username && a.IsSold == false)
+            .Where(a => a.AssignedTo == request.Username)
             .ToListAsync(cancellationToken: cancellationToken);
 
         return assets.Select(a => new AssignedAssetSummaryViewModel()
