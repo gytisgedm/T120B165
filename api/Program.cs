@@ -24,6 +24,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<FixedAssetsContext>(o =>
            o.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=FixedAssets;Trusted_Connection=True"));
+           //o.UseSqlServer("Server=tcp:fixed-assets-server.database.windows.net,1433;Initial Catalog=FixedAssets;Persist Security Info=False;User ID=fixed-asset-admin;Password=FApassword3790;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>

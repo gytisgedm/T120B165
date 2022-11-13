@@ -66,17 +66,19 @@ namespace api.Features.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(string username, string password)
         {
-            if (_employee.Username != username)
+            var employee = _db.Employees.Where(e => e.Username == username).FirstOrDefault();
+
+            if (employee == null)
             {
                 return BadRequest("Employee not found.");
-            }
+            }            
 
-            if (!VerifyPasswordHash(password, _employee.PasswordHash, _employee.PasswordSalt))
+            if (!VerifyPasswordHash(password, employee.PasswordHash, employee.PasswordSalt))
             {
                 return BadRequest("Wrong password.");
             }
 
-            string token = CreateToken(_employee);
+            string token = CreateToken(employee);
 
             var refreshToken = GenerateRefreshToken();
             SetRefreshToken(refreshToken);
@@ -133,10 +135,16 @@ namespace api.Features.Controllers
 
         private string CreateToken(Employee employee)
         {
+            string role = "Employee";
+            if (employee.IsAdmin)
+                role = "Admin";
+            if (_db.FixedAssetManagers.Where(m => m.Username == employee.Username).FirstOrDefault() != null)
+                role = "FAManager";
+
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, employee.Username),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Role, role)
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
