@@ -1,8 +1,10 @@
 ﻿using api.Context;
 using api.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace api.Features.Assets.Commands;
 
@@ -17,6 +19,7 @@ public class InitiateReturn : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "FAManager")]
     public async Task<IActionResult> Return([FromBody] InitiateReturnCommand command)
     {
         if (command == null)

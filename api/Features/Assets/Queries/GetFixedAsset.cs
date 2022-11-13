@@ -1,8 +1,10 @@
 ﻿using api.Context;
 using api.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace api.Features.Assets.Queries;
@@ -18,6 +20,7 @@ public class GetFixedAsset : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "FAManager")]
     public async Task<IActionResult> GetAssignedAssets([FromRoute] string code)
     {
         var query = new GetFixedAssetQuery(code);

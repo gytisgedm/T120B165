@@ -1,8 +1,10 @@
 ﻿using api.Context;
 using api.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace api.Features.Assets.Commands;
@@ -18,6 +20,7 @@ public class RemoveEmployee : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Remove([FromRoute] string username)
     {
         var command = new RemoveEmployeeCommand(username);

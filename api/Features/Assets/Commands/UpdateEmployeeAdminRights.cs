@@ -1,8 +1,10 @@
 ﻿using api.Context;
 using api.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace api.Features.Assets.Commands;
 
@@ -17,6 +19,7 @@ public class UpdateEmployeeAdminRights : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update([FromBody] UpdateEmployeeAdminRightsCommand command)
     {
         if (command == null)

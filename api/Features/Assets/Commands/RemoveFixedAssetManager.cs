@@ -1,6 +1,7 @@
 ﻿using api.Context;
 using api.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ public class RemoveFixedAssetManager : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Roles = "IsAdmin")]
     public async Task<IActionResult> Remove([FromBody] RemoveAssetManagerCommand command)
     {
         if (command == null)

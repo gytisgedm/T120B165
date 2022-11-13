@@ -1,6 +1,8 @@
 ﻿using api.Context;
 using api.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +19,7 @@ public class GetMyManagedAssets : ControllerBase
     }
 
     [HttpGet]
+    [Authorize (Roles = "FAManager")]
     public async Task<IActionResult> GetManagedAssets([FromRoute] string username) 
     {
         var query = new GetMyManagedAssetsQuery(username);

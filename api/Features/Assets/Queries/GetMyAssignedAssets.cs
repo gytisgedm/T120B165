@@ -1,8 +1,10 @@
 ﻿using api.Context;
 using api.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace api.Features.Assets.Queries;
 
@@ -17,6 +19,7 @@ public class GetMyAssignedAssets : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Employee")]
     public async Task<IActionResult> GetAssignedAssets([FromRoute] string username) 
     {
         var query = new GetMyAssignedAssetsQuery(username); ;
