@@ -146,3 +146,9 @@ C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\obj\Debug\
 C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\obj\Debug\net6.0\api.pdb
 C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\obj\Debug\net6.0\api.genruntimeconfig.cache
 C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\obj\Debug\net6.0\ref\api.dll
+C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\bin\Debug\net6.0\Scrutor.dll
+C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\gytis_21l6q0a\Documents\GitHub\T120B165\.vs\T120B165\api\api\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
