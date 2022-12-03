@@ -56,7 +56,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     policy =>
     {
         policy.WithOrigins("http://localhost:7146").AllowAnyMethod().AllowAnyHeader();
-        policy.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:8094").AllowAnyMethod().AllowAnyHeader();
     }));
 
 var app = builder.Build();

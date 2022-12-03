@@ -8,7 +8,7 @@ using System.Data;
 
 namespace api.Features.Assets.Queries;
 
-[Route("/fixed-assets/managers")]
+[Route("managers")]
 public class GetAllFixedAssetManagers : ControllerBase
 {
     private readonly IMediator _mediator;
