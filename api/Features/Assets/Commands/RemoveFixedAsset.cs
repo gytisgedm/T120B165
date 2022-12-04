@@ -19,10 +19,10 @@ public class RemoveFixedAsset : ControllerBase
     }
 
     [HttpDelete]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "FAManager")]
     public async Task<IActionResult> Assign([FromRoute] string code)
     {
-        var command = new RemoveEmployeeCommand(code);
+        var command = new RemoveFixedAssetCommand(code);
         if (command == null)
             return BadRequest();
         bool completed = await _mediator.Send(command);

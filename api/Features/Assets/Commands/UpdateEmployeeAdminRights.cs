@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Data;
 
 namespace api.Features.Assets.Commands;
@@ -20,11 +21,11 @@ public class UpdateEmployeeAdminRights : ControllerBase
 
     [HttpPut]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update([FromBody] UpdateEmployeeAdminRightsCommand command)
+    public async Task<IActionResult> Update([FromRoute] string username)
     {
-        if (command == null)
+        if (username.IsNullOrEmpty())
             return BadRequest();
-        bool completed = (await _mediator.Send(command));
+        bool completed = (await _mediator.Send(new UpdateEmployeeAdminRightsCommand { Username = username}));
         if (completed)
             return Ok();
         else return NotFound();
@@ -34,7 +35,6 @@ public class UpdateEmployeeAdminRights : ControllerBase
 public class UpdateEmployeeAdminRightsCommand : IRequest<bool>
 {
     public string Username { get; set; }
-    public bool IsAdmin { get; set; }
 }
 
 public class UpdateEmployeeAdminRightsCommandHandler : IRequestHandler<UpdateEmployeeAdminRightsCommand, bool>
@@ -53,7 +53,7 @@ public class UpdateEmployeeAdminRightsCommandHandler : IRequestHandler<UpdateEmp
         if (employee == null)
             return false;
 
-        employee.IsAdmin = request.IsAdmin;
+        employee.IsAdmin = !employee.IsAdmin;
 
         await _db.SaveChangesAsync(cancellationToken);
 

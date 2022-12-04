@@ -8,7 +8,7 @@ using System.Data;
 
 namespace api.Features.Assets.Commands;
 
-[Route("/fixed-asset/manager")]
+[Route("manager/add")]
 public class AddFixedAssetManager : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -49,10 +49,10 @@ public class AddFixedAssetManagerCommandHandler : IRequestHandler<AddFixedAssetM
     public async Task<bool> Handle(AddFixedAssetManagerCommand request, CancellationToken cancellationToken)
     {
         var categories = _db.FixedAssets.Select(a => a.Class);
-        if (!categories.Contains(request.FACategory))
+        /*if (!categories.Contains(request.FACategory))
         {
             return false; // Not quite right
-        }
+        }*/
 
         var manager = new FixedAssetManager()
         {

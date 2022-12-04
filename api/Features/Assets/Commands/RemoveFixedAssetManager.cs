@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Features.Assets.Commands;
 
-[Route("/fixed-asset/manager/remove/")]
+[Route("manager/remove")]
 public class RemoveFixedAssetManager : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -18,12 +18,12 @@ public class RemoveFixedAssetManager : ControllerBase
     }
 
     [HttpDelete]
-    [Authorize(Roles = "IsAdmin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Remove([FromBody] RemoveAssetManagerCommand command)
     {
         if (command == null)
             return BadRequest();
-        bool completed = (await _mediator.Send(new RemoveAssetManagerCommand()));
+        bool completed = (await _mediator.Send(command));
         if (completed)
             return Ok();
         else return NotFound();
@@ -47,14 +47,10 @@ public class RemoveFixedAssetManagerCommandHandler : IRequestHandler<RemoveAsset
 
     public async Task<bool> Handle(RemoveAssetManagerCommand request, CancellationToken cancellationToken)
     {
-        var asset = _db.FixedAssetManagers.Where(e => e.Username == request.Username && e.FACategory == request.FACategory).FirstOrDefault();
-        if (asset == null)
+        var manager = _db.FixedAssetManagers.Where(e => e.Username == request.Username && e.FACategory == request.FACategory).FirstOrDefault();
+        if (manager == null)
             return false;
-        _db.FixedAssetManagers.Remove(new FixedAssetManager() 
-        {
-            Username = request.Username,
-            FACategory = request.FACategory,
-        });
+        _db.FixedAssetManagers.Remove(manager);
 
         await _db.SaveChangesAsync(cancellationToken);
 
