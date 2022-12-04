@@ -84,7 +84,7 @@ export default {
         this.loading = true
         try {
           const { data } = await this.$axios.post('/auth/login/?username=' + this.username + '&password=' + this.password)
-          Cookies.set('token', data, { domain: process.env.VUE_APP_COOKIE_DOMAIN })
+          Cookies.set('token', data)
           this.$router.push('/dashboard')
         }
         catch(e) {
