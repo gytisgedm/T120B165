@@ -1,0 +1,13 @@
+{
+  "username": "Username",
+  "password": "Password",
+  "login": "Login",
+  "close": "Close",
+  "changePassword": "Change password",
+  "cancel": "Cancel",
+  "newPassword": "New password",
+  "newPassword2": "Repeat password",
+  "resetPassword": "Reset password",
+  "forgotPassword": "Forgot password?",
+  "back": "Back"
+}

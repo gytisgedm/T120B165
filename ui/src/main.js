@@ -1,10 +1,19 @@
-import { createApp } from 'vue'
+import Vue from 'vue'
+import './plugins/axios'
 import App from './App.vue'
-import vuetify from './plugins/vuetify'
-import { loadFonts } from './plugins/webfontloader'
+import vuetify from './plugins/vuetify';
+import i18n from './i18n'
+import router from './router'
+import auth from './auth'
 
-loadFonts()
+Vue.config.productionTip = false
 
-createApp(App)
-  .use(vuetify)
-  .mount('#app')
+export const eventBus = new Vue()
+
+new Vue({
+  vuetify,
+  i18n,
+  router,
+  auth,
+  render: h => h(App)
+}).$mount('#app')

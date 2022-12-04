@@ -1,0 +1,13 @@
+{
+  "username": "Prisijungimo vardas",
+  "password": "Slaptažodis",
+  "login": "Prisijungti",
+  "close": "Uždaryti",
+  "changePassword": "Pakeisti slaptažodį",
+  "cancel": "Atšaukti",
+  "newPassword": "Naujas slaptažodis",
+  "newPassword2": "Pakartoti slaptažodį",
+  "resetPassword": "Slaptažodžio keitimas",
+  "forgotPassword": "Pamiršote slaptažodį?",
+  "back": "Atgal"
+}

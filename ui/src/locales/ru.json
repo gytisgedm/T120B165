@@ -1,0 +1,13 @@
+{
+  "username": "Логин",
+  "password": "Пароль",
+  "login": "Присоединится",
+  "close": "Закрыть",
+  "changePassword": "Поменять пароль",
+  "cancel": "Отменить",
+  "newPassword": "Новый пароль",
+  "newPassword2": "Повторить пароль",
+  "resetPassword": "Поменять пароль",
+  "forgotPassword": "Забыли пароль?",
+  "back": "Назад"
+}

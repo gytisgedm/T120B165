@@ -1,23 +1,24 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld/>
+      <v-container class="fill-height" fluid>
+        <v-row align="center" justify="center">
+          <v-col cols="12" sm="8" md="4">
+            <router-view />
+          </v-col>
+        </v-row>
+      </v-container>
+      <snackbar />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Snackbar from "./components/snackbar";
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-}
+  components: { Snackbar },
+};
 </script>
+
+
+
