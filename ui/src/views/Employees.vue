@@ -25,6 +25,9 @@
         :loading="loading"
         class="elevation-1"
       >
+        <template #[`item.isAdmin`]="{ item }">
+            {{ item.isAdmin? "Taip" : "Ne" }}
+        </template>
         <template #[`item.actions`]="{ item }">
             <v-btn icon @click="changeAdminSettings(item.username)">
                 <v-icon>mdi-security</v-icon>
@@ -39,6 +42,7 @@
                 @close="showAddForm = false"
                 @add="addEmployee($event)"
         />
+        <footer-bar/>
     </div>
   </template>
   
@@ -48,9 +52,10 @@
   import AppBar from '../components/app-bar'
   import NavBar from '../components/nav-bar'
   import EmployeeFromAdd from '../components/EmployeeFormAdd'
+  import FooterBar from '../components/footer-bar'
   
   export default {
-    components: { AppBar, NavBar, EmployeeFromAdd },
+    components: { AppBar, NavBar, EmployeeFromAdd, FooterBar },
     data: () => ({
       isAdmin: auth.isAdmin(),
       username: auth.getUsername(),

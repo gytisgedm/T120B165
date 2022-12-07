@@ -15,11 +15,11 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  {
-    path: '/dashboard',
-    name: 'DashBoard',
-    component: Dashboard
-  },
+  // {
+  //   path: '/dashboard',
+  //   name: 'DashBoard',
+  //   component: Dashboard
+  // },
   {
     path: '/fixed-assets',
     name: 'Fixed assets',

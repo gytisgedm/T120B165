@@ -1,6 +1,7 @@
 <template>
-    <v-dialog
+    <v-dialog 
       v-if="value"
+      transition="fab-transition"
       :value="value"
       persistent
       scrollable

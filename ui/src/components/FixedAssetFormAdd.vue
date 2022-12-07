@@ -14,13 +14,14 @@
         maxlength="6"
         v-model="code"
     />   
-    <v-text-field
+    <v-select
         label="Kategorija"
-        :rules="[rules.required]"
         v-model="category"
-    />   
+        :rules="[rules.required]"
+        :items="categories"
+    />
     <v-text-field
-        label="Description"
+        label="Aprašymas"
         :rules="[rules.required]"
         v-model="description"
     />    
@@ -62,6 +63,7 @@ export default {
                 required: v => !!v || "Laukas privalomas",
                 numeric: (v) => !isNaN(v) || "Galima vesti tik skaičius",
             },
+            categories: ['MOB', 'KOMPIUT', 'SPAUSD']
         }
     },
     computed:{

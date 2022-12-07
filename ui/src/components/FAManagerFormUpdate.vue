@@ -7,11 +7,12 @@
         scrollable
         @input="$emit('close')"
 >
-    <v-text-field
-        label="Nauja kategorija"
-        :rules="[rules.required]"
+    <v-select
+        label="Kategorija"
         v-model="category"
-    />    
+        :rules="[rules.required]"
+        :items="categories"
+    />
 
     <template #actions>
         <v-spacer />
@@ -55,6 +56,7 @@ export default {
             rules:{
                 required: v => !!v || "Laukas privalomas"
             },
+            categories: ['MOB', 'KOMPIUT', 'SPAUSD']
         }
     },
     computed:{

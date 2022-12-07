@@ -4,6 +4,7 @@
         <v-toolbar-title>Pagrindinis puslapis</v-toolbar-title>
     </app-bar>
     <nav-bar/>
+    <footer-bar/>
   </div>
 </template>
 
@@ -11,9 +12,10 @@
 
 import AppBar from '../components/app-bar'
 import NavBar from '../components/nav-bar'
+import FooterBar from '../components/footer-bar'
 
 export default { 
-  components: { AppBar, NavBar },
+  components: { AppBar, NavBar, FooterBar },
   data: () => ({
     
   }),

@@ -85,7 +85,7 @@ export default {
         try {
           const { data } = await this.$axios.post('/auth/login/?username=' + this.username + '&password=' + this.password)
           Cookies.set('token', data)
-          this.$router.push('/dashboard')
+          this.$router.push('/fixed-assets')
         }
         catch(e) {
           this.showError(MessageTypes.ServerError)

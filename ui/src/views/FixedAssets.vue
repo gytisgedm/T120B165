@@ -3,7 +3,7 @@
     <app-bar>
         <v-toolbar-title>Ilgalaikis turtas</v-toolbar-title>
         <v-spacer/>
-        <v-btn v-if="isFAManager" icon @click="(showAddForm = true)">
+        <v-btn v-if="isFAManager" icon @click="(showAddFAForm = true)">
             <v-icon>mdi-plus</v-icon>
         </v-btn>
     </app-bar>
@@ -26,20 +26,44 @@
       :items="fixedAssets"
       :items-per-page="50"
       :loading="loading"
+      :item-class="itemRowBackground"
       class="elevation-1"
     >
+      <template #[`item.eventType`]="{ item }">
+        {{ item.eventType? getTypeText(item.eventType): defaultTypeText }}
+      </template>
+
       <template #[`item.actions`]="{ item }">
-        <v-btn icon @click="deleteFixedAsset(item.code)">
+        <v-btn v-if="isFAManager" icon @click="(code = item.code, showEmployeeDialog = true)">
+            <v-icon>mdi-account-plus</v-icon>
+        </v-btn>
+        <v-btn v-if="isFAManager" icon @click="storeAssignedFixedAsset(item.code)">
+            <v-icon>mdi-warehouse</v-icon>
+        </v-btn>
+        <v-btn v-if="(isEmployeeOrAdmin && item.eventType === 1)" icon @click="acceptAssignedAsset(item.code)">
+            <v-icon>mdi-check</v-icon>
+        </v-btn>
+        <v-btn v-if="(isEmployeeOrAdmin  && item.eventType === 1)" icon @click="rejectAssignedAsset(item.code)">
             <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-btn v-if="isFAManager" icon @click="deleteFixedAsset(item.code)">
+            <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
     </v-data-table>
 
     <FixedAssetFormAdd
-        :show=showAddForm
-        @close="showAddForm = false"
+        :show=showAddFAForm
+        @close="showAddFAForm = false"
         @add="addFixedAsset($event)"
     />
+    <EmployeeDialog
+        :show=showEmployeeDialog
+        title="Priskriti ilgalaikį turtą darbuotojui"
+        @close="showEmployeeDialog = false"
+        @selected="(employee = $event, assignFixedAsset())"
+    />
+    <footer-bar/>
   </div>
 </template>
 
@@ -49,21 +73,28 @@ import auth from '../auth'
 import AppBar from '../components/app-bar'
 import NavBar from '../components/nav-bar'
 import FixedAssetFormAdd from '../components/FixedAssetFormAdd'
+import EmployeeDialog from '../components/EmployeeDialog.vue'
+import FooterBar from '../components/footer-bar'
 
 export default {
-  components: { AppBar, NavBar, FixedAssetFormAdd },
+  components: { AppBar, NavBar, FixedAssetFormAdd, EmployeeDialog, FooterBar },
   data: () => ({
     isFAManager: auth.isFAManager(),
-    isEmployee: auth.isEmployee(),
+    isEmployeeOrAdmin: auth.isEmployeeOrAdmin(),
     username: auth.getUsername(),
     fixedAssets: [],
     loading: false,
     search: null,
-    showAddForm: false,
+    showAddFAForm: false,
+    showEmployeeDialog: false,
+    code: null,
+    employee: {},
+    defaultTypeText: "Nepriskrita",
     managerHeaders: [
        { text: 'Kodas', value: 'code' },
        { text: 'Aprašymas', value: 'description' },
        { text: 'Serijinis numeris', value: 'serialNumber' },
+       { text: 'Būsena', value: 'eventType' },
        { text: 'Priskirta', value: 'assignedTo' },
        { text: 'Veiksmai', value: 'actions' },
     ],
@@ -71,6 +102,7 @@ export default {
        { text: 'Kodas', value: 'code' },
        { text: 'Aprašymas', value: 'description' },
        { text: 'Serijinis numeris', value: 'serialNumber' },
+       { text: 'Būsena', value: 'eventType' },
        { text: 'Priskirė', value: 'assignedBy' },
        { text: 'Veiksmai', value: 'actions' },
     ],
@@ -79,8 +111,14 @@ export default {
           numeric: (v) => !isNaN(v) || "Galima vesti tik skaičius",
     },
   }),
+  computed: {
+    employeeUsername(){
+        if(this.employee[0]) return this.employee[0].username
+          return ''
+    }
+  },
   async created() {
-    if (this.isEmployee){
+    if (this.isEmployeeOrAdmin){
       this.getAssignedFixedAssets()
     }
       
@@ -111,13 +149,67 @@ export default {
         this.loading = false
     },
     async deleteFixedAsset(code){
-      if (confirm("Ar tikrai norite ištrinti ilgalaikį turtą, nr. " + code)) {
+      if (confirm("Ar tikrai norite ištrinti ilgalaikį turtą, nr. " + code + "?")) {
         this.loading = true
         await this.$axios.delete('/fixed-asset/remove/' + code)
         this.getManagedFixedAssets()
         this.loading = false
       }
-    }
+    },
+    async assignFixedAsset(){
+      this.loading = true
+      await this.$axios.post('/fixed-asset/assign/', { code: this.code, assignedBy: auth.getUsername(), assignTo: this.employeeUsername })
+      this.getManagedFixedAssets()
+      this.loading = false
+    },
+    async storeAssignedFixedAsset(code){
+      if (confirm("Ar tikrai norite sandėliuoti ilgalaikį turtą nr. " + code + "?")) {
+        this.loading = true
+        await this.$axios.post('/fixed-asset/store/', { code: code, requestedBy: auth.getUsername()})
+        this.getManagedFixedAssets()
+        this.loading = false
+      }
+    },
+    async acceptAssignedAsset(code){
+      if (confirm("Ar tikrai norite priimti ilgalaikį turtą nr. " + code + "?")) {
+        this.loading = true
+        await this.$axios.post('/fixed-asset/accept/', { code: code, requestedBy: auth.getUsername()})
+        this.getAssignedFixedAssets()
+        this.loading = false
+      }
+    },
+    async rejectAssignedAsset(code){
+      if (confirm("Ar tikrai norite atmesti ilgalaikį turtą nr. " + code + "?")) {
+        this.loading = true
+        await this.$axios.post('/fixed-asset/reject/', { code: code, requestedBy: auth.getUsername()})
+        this.getAssignedFixedAssets()
+        this.loading = false
+      }
+    },
+    getTypeText(eventType) {
+      switch (eventType){
+        case 1:
+          return "Priskrita naudotojui"
+        case 2:
+          return "Patvirtinta naudotojo"
+        case 3:
+          return "Atmesta naudotojo"
+        case 5:
+          return "Sandėliuojama"
+      }
+    },
+    itemRowBackground(item) {
+      switch (item.eventType){
+        case 1:
+          return "blue lighten-5"
+        case 2:
+          return "green lighten-5"
+        case 3:
+          return "red lighten-5"
+        case 5:
+          return "yellow lighten-5"
+      }      
+    },
   }
 }
 </script>

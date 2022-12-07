@@ -47,6 +47,7 @@
             @close="showUpdateForm = false"
             @update="updateFAManager($event)"
         />
+      <footer-bar/>
     </div>
   </template>
   
@@ -57,9 +58,10 @@
   import NavBar from '../components/nav-bar'
   import FAManagerFormAdd from '../components/FAManagerFormAdd'
   import FAManagerFormUpdate from '../components/FAManagerFormUpdate'
+  import FooterBar from '../components/footer-bar'
   
   export default {
-    components: { AppBar, NavBar, FAManagerFormAdd, FAManagerFormUpdate },
+    components: { AppBar, NavBar, FAManagerFormAdd, FAManagerFormUpdate, FooterBar },
     data: () => ({
       isAdmin: auth.isAdmin(),
       username: auth.getUsername(),

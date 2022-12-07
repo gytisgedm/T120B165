@@ -74,18 +74,18 @@ import auth from '../auth'
     computed:{
         items() {
           return [
-                {
-                  icon: 'mdi-home',
-                  name: 'Pagrindinis puslapis',
-                  to: '/dashboard',
-                  admin: true,
-                  otherUsers: true
-                },
+                // {
+                //   icon: 'mdi-home',
+                //   name: 'Pagrindinis puslapis',
+                //   to: '/dashboard',
+                //   admin: true,
+                //   otherUsers: true
+                // },
                 {
                   icon: 'mdi-hand-coin-outline',
                   name: 'Ilgalaikis turtas',
                   to: '/fixed-assets',
-                  admin: false,
+                  admin: true,
                   otherUsers: true
                 },
                 {

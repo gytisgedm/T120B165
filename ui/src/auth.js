@@ -37,6 +37,13 @@ exports.getUsername = (that) => {
   let decodedJwtData = JSON.parse(decodedJwtJsonData)
   return(decodedJwtData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"])
 };
+exports.isEmployeeOrAdmin = (that) => { 
+  const jwt = Cookies.get('token');
+  let jwtData = jwt.split('.')[1]
+  let decodedJwtJsonData = window.atob(jwtData)
+  let decodedJwtData = JSON.parse(decodedJwtJsonData)
+  return(decodedJwtData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] === "Employee" || decodedJwtData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] === "Admin")
+};
 exports.getToken = (that) => {
   return(Cookies.get('token'))
 };

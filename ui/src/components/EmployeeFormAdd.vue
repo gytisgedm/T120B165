@@ -27,10 +27,10 @@
            :rules="[rules.required]"
            v-model="surname"
        />    
-       <v-text-field
-           label="Administratorius"
-           v-model="isAdmin"
-       />    
+       <v-checkbox
+            label="Administratorius"
+            v-model="isAdmin"
+        />    
        <v-text-field
            label="Departamentas"
            v-model="department"
