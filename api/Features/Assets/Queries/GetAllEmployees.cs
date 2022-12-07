@@ -19,7 +19,7 @@ public class GetAllEmployees : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,FAManager")]
     public async Task<IActionResult> GetEmployees() =>
         Ok(await _mediator.Send(new GetAllEmployeesQuery()));
 

@@ -19,7 +19,7 @@ public class GetMyAssignedAssets : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee, Admin")]
     public async Task<IActionResult> GetAssignedAssets([FromRoute] string username) 
     {
         var query = new GetMyAssignedAssetsQuery(username); ;
