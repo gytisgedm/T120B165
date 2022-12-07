@@ -19,7 +19,7 @@ public class AcceptAssignedAsset : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee, Admin")]
     public async Task<IActionResult> Add([FromBody] AcceptAssignedAssetCommand command)
     {
         if (command == null)

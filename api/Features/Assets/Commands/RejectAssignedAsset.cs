@@ -19,7 +19,7 @@ public class RejectAssignedAsset : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Employee, Admin")]
     public async Task<IActionResult> Reject([FromBody] RejectAssignedAssetCommand command)
     {
         if (command == null)
