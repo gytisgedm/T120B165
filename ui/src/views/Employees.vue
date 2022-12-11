@@ -95,7 +95,7 @@
       async changeAdminSettings(username){
         if (confirm("Ar tikrai norite pakeisti administratoriaus teises?")) {
             this.loading = true
-            await this.$axios.put('/employee/admin/?username=' + username)
+            await this.$axios.put('/employee/', {username: username})
             this.employees = (await this.$axios.get('/employees')).data
             this.loading = false
         }
