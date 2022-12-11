@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\Api\\api.csproj": {}
+    "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\Api\\api.csproj": {
+    "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\Api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\Api\\api.csproj",
+        "projectPath": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\api\\api.csproj",
         "packagesPath": "C:\\Users\\gytis_21l6q0a\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\Api\\obj\\",
+        "outputPath": "C:\\Users\\gytis_21l6q0a\\Documents\\GitHub\\T120B165\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gytis_21l6q0a\\AppData\\Roaming\\NuGet\\NuGet.Config",

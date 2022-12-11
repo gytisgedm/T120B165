@@ -57,7 +57,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
     policy =>
     {
         policy.WithOrigins("http://localhost:7146").AllowAnyMethod().AllowAnyHeader();
-        policy.WithOrigins("http://localhost:8081").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:8082").AllowAnyMethod().AllowAnyHeader();
         policy.WithOrigins("https://fa-management.netlify.app").AllowAnyMethod().AllowAnyHeader();
     }));
 

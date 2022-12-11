@@ -9,7 +9,7 @@ using System.Data;
 
 namespace api.Features.Assets.Commands;
 
-[Route("/employee/admin")]
+[Route("/employee/")]
 public class UpdateEmployeeAdminRights : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -21,11 +21,11 @@ public class UpdateEmployeeAdminRights : ControllerBase
 
     [HttpPut]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update([FromRoute] string username)
+    public async Task<IActionResult> Update([FromBody] UpdateEmployeeAdminRightsCommand command)
     {
-        if (username.IsNullOrEmpty())
+        if (command == null)
             return BadRequest();
-        bool completed = (await _mediator.Send(new UpdateEmployeeAdminRightsCommand { Username = username}));
+        bool completed = (await _mediator.Send(command));
         if (completed)
             return Ok();
         else return NotFound();
