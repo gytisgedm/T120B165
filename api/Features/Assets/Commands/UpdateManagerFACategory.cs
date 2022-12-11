@@ -8,7 +8,7 @@ using System.Data;
 
 namespace api.Features.Assets.Commands;
 
-[Route("manager/update")]
+[Route("manager")]
 public class UpdateManagerFACategory : ControllerBase
 {
     private readonly IMediator _mediator;

@@ -8,7 +8,7 @@ using System.Data;
 
 namespace api.Features.Assets.Commands;
 
-[Route("manager/add")]
+[Route("manager")]
 public class AddFixedAssetManager : ControllerBase
 {
     private readonly IMediator _mediator;

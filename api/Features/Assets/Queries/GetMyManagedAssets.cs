@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Features.Assets.Queries;
 
-[Route("/managed/{username}/fixed-assets")]
+[Route("/managed/{username}")]
 public class GetMyManagedAssets : ControllerBase
 {
     private readonly IMediator _mediator;
