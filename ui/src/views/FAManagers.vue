@@ -81,6 +81,7 @@
     async created() {
       if (this.isAdmin){
         this.getFAManagers()
+        document.title = "Atsakingi asmenys"
       }
     },
     methods: {
@@ -92,7 +93,7 @@
       async deleteFAManager(category, username){
         if (confirm("Ar tikrai norite ištrinti?")) {
             this.loading = true
-            await this.$axios.delete('/manager/remove', {data: {faCategory: category, username: username}})
+            await this.$axios.delete('/manager/', {data: {faCategory: category, username: username}})
             this.employees = (await this.$axios.get('/managers')).data
             this.loading = false
         }
@@ -104,13 +105,13 @@
       },
       async addFAManager(data){      
             this.loading = true
-            await this.$axios.post('/manager/add', data)
+            await this.$axios.post('/manager', data)
             this.getFAManagers()
             this.loading = false
         },   
     async updateFAManager(data){      
             this.loading = true
-            await this.$axios.put('fixed-asset/manager/update', data)
+            await this.$axios.put('/manager', data)
             this.getFAManagers()
             this.loading = false
         },   

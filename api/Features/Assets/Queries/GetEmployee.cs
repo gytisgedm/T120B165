@@ -8,7 +8,7 @@ using System.Data;
 
 namespace api.Features.Assets.Queries;
 
-[Route("/employee/get/{username}")]
+[Route("/employee/{username}")]
 public class GetEmployee : ControllerBase
 {
     private readonly IMediator _mediator;

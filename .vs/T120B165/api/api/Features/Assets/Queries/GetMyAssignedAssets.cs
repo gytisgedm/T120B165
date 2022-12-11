@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Features.Assets.Queries;
 
-[Route("assigned/{username}/fixed-assets")]
+[Route("assigned/{username}")]
 public class GetMyAssignedAssets : ControllerBase
 {
     private readonly IMediator _mediator;

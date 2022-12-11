@@ -9,7 +9,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace api.Features.Assets.Queries;
 
-[Route("/fixed-assets/get/{code}")]
+[Route("/fixed-asset/{code}")]
 public class GetFixedAsset : ControllerBase
 {
     private readonly IMediator _mediator;

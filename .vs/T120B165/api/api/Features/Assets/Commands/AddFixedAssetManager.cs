@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Features.Assets.Commands;
 
-[Route("/fixed-asset/manager")]
+[Route("manager")]
 public class AddFixedAssetManager : ControllerBase
 {
     private readonly IMediator _mediator;

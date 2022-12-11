@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Features.Assets.Commands;
 
-[Route("/fixed-asset/manager/remove/")]
+[Route("/manager")]
 public class RemoveFixedAssetManager : ControllerBase
 {
     private readonly IMediator _mediator;

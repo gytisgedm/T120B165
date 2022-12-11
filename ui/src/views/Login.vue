@@ -68,6 +68,7 @@ export default {
     this.returnUrl = this.$route.query.returnUrl
     this.ghost = this.$route.query.ghost
     this.username = this.$route.query.username || null
+    document.title = "Prisijungimas"
   },
   mounted() {
     this.$refs.username.focus()

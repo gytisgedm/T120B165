@@ -120,6 +120,7 @@ export default {
   async created() {
     if (this.isEmployeeOrAdmin){
       this.getAssignedFixedAssets()
+      document.title = "Ilgalaikis turtas"
     }
       
     if (this.isFAManager){
@@ -129,29 +130,29 @@ export default {
   methods: {
     async getManagedFixedAssets(){
       this.loading = true
-      this.fixedAssets = (await this.$axios.get('/managed/' + this.username + '/fixed-assets')).data
+      this.fixedAssets = (await this.$axios.get('/managed/' + this.username)).data
       this.loading = false
     },
     async getAssignedFixedAssets(){
       this.loading = true
-      this.fixedAssets = (await this.$axios.get('/assigned/' + this.username + '/fixed-assets')).data
+      this.fixedAssets = (await this.$axios.get('/assigned/' + this.username)).data
       this.loading = false
     },
     async getFixedAsset(){
       this.loading = true
-        this.fixedAssets = (await this.$axios.get('/fixed-assets/get/' + this.search)).data
+        this.fixedAssets = (await this.$axios.get('/fixed-asset/' + this.search)).data
         this.loading = false
     },
     async addFixedAsset(data){
         this.loading = true
-        await this.$axios.post('/fixed-asset', data)
+        await this.$axios.post('/fixed-asset/', data)
         this.getManagedFixedAssets()
         this.loading = false
     },
     async deleteFixedAsset(code){
       if (confirm("Ar tikrai norite ištrinti ilgalaikį turtą, nr. " + code + "?")) {
         this.loading = true
-        await this.$axios.delete('/fixed-asset/remove/' + code)
+        await this.$axios.delete('/fixed-asset/' + code)
         this.getManagedFixedAssets()
         this.loading = false
       }

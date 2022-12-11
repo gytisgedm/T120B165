@@ -8,7 +8,7 @@ using System.Data;
 
 namespace api.Features.Assets.Commands;
 
-[Route("/fixed-asset/remove/{code}")]
+[Route("/fixed-asset/{code}")]
 public class RemoveFixedAsset : ControllerBase
 {
     private readonly IMediator _mediator;

@@ -75,6 +75,7 @@
     async created() {
       if (this.isAdmin){
         this.getEmployees()
+        document.title = "Darbuotojai"
       }
     },
     methods: {
@@ -86,7 +87,7 @@
         async deleteEmployee(username){
         if (confirm("Ar tikrai norite ištrinti?")) {
             this.loading = true
-            await this.$axios.delete('/employee/remove/' + username)
+            await this.$axios.delete('/employee/' + username)
             this.employees = (await this.$axios.get('/employees')).data
             this.loading = false
         }
@@ -101,7 +102,7 @@
       },
       async getEmployee(){
         this.loading = true
-        this.employees = (await this.$axios.get('/employee/get/' + this.search)).data
+        this.employees = (await this.$axios.get('/employee/' + this.search)).data
         this.loading = false
       },
         async addEmployee(data){

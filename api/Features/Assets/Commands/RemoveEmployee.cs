@@ -9,7 +9,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace api.Features.Assets.Commands;
 
-[Route("/employee/remove/{username}")]
+[Route("/employee/{username}")]
 public class RemoveEmployee : ControllerBase
 {
     private readonly IMediator _mediator;
