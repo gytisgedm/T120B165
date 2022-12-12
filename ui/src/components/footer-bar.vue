@@ -5,7 +5,7 @@
           justify="center"
           no-gutters
         >
-        <v-col class="green darken-3 text-center white--text">
+        <!-- <v-col class="green darken-3 text-center white--text">
             <v-btn
               color="white"
               text
@@ -15,7 +15,7 @@
             >
               Pagrindinis puslapis
             </v-btn>
-        </v-col>
+        </v-col> -->
         <v-col
           class="green darken-3 text-center white--text"
           cols="12"
