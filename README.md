@@ -95,8 +95,9 @@ Atsako kodai:
 
 Panaudojimo pavyzdys:
 
-Užklausa: POST https://fixedassetsapi.azurewebsites.net/auth/register,
-request body:
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/auth/register
+
+Request body:
 ```json
 {
   "name": "employee2",
