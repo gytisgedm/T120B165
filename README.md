@@ -229,7 +229,6 @@ Atsakymas:
         "description": "MacBook Pro13.3 DC i7 2.9GHz/G",
         "assignedBy": "famanager",
         "serialNumber": "C02HWVJDDTY3",
-        "boughtAt": "2020-10-01T00:00:00",
         "eventType": 2
     }
 ]
@@ -309,7 +308,6 @@ Atsakymas:
         "description": "MacBook Pro13.3 DC i7 2.9GHz/G",
         "assignedTo": "employee",
         "serialNumber": "C02HWVJDDTY3",
-        "boughtAt": "2020-10-01T00:00:00",
         "eventType": 2
     },
     {
@@ -317,7 +315,6 @@ Atsakymas:
         "description": "MacBook Pro13.3 DC i7 2.9GHz/G",
         "assignedTo": null,
         "serialNumber": "C02HWVJDDTY3",
-        "boughtAt": "2020-10-01T00:00:00",
         "eventType": 5
     },
     {
@@ -325,7 +322,6 @@ Atsakymas:
         "description": "Dell Kompiuteris",
         "assignedTo": "employee",
         "serialNumber": "FA15634",
-        "boughtAt": null,
         "eventType": 1
     }
 ]
@@ -340,6 +336,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset
+
 Request body:
 ```json
 {
@@ -363,6 +360,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/manager
+
 Request body:
 ```json
 {
@@ -383,6 +381,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/accept
+
 Request body:
 ```json
 {
@@ -403,6 +402,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/reject
+
 Request body:
 ```json
 {
@@ -423,6 +423,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/assign
+
 Request body:
 ```json
 {
@@ -444,6 +445,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/store
+
 Request body:
 ```json
 {
@@ -464,8 +466,9 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: PUT https://fixedassetsapi.azurewebsites.net/employee
-```json
+
 Request body:
+```json
 {
   "username": "employee",
   "isAdmin": "false"
@@ -484,6 +487,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: PUT https://fixedassetsapi.azurewebsites.net/fixed-asset
+
 Request body:
 ```json
 {
@@ -506,6 +510,7 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: PUT https://fixedassetsapi.azurewebsites.net/manager
+
 Request body:
 ```json
 {
@@ -527,8 +532,9 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: DELETE https://fixedassetsapi.azurewebsites.net/manager
-```json
+
 Request body:
+```json
 {
   "username": "famanager",
   "category": "MOB"
