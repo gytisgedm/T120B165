@@ -26,9 +26,6 @@ Registruoti ilgalaikio turto naudotojus, palengvinti darbuotojų, kurie atsaking
 
 
 #	Sistemos architektūra
-Kliento pusė realizuojama su Vue.js bei axios JavaScript.
-
-Serverio pusė realizuojama su .NET 6.0, Entity framework, naudojama MySQL duomenų bazė.
 
 ![image](https://user-images.githubusercontent.com/79420546/193509884-d3dd292f-6883-4251-ac10-df653628d62b.png)
 
@@ -569,4 +566,8 @@ Panaudojimo pavyzdys:
 Užklausa: DELETE https://fixedassetsapi.azurewebsites.net/fixed-asset/008015
 
 Atsakymas: 200 OK
+
+# Išvados
+
+Laboratorinių darbų metu .NET 6.0 aplinkoje pavyko sukurti REST API ilgalaikio turto sistemai su autorizacija bei autentifikacija naudojant JWT. Sukurtos 3 rolės: darbuotojas, atsakingas asmuo už ilgalaikį turtą, sistemos administratorius. Sukurtam API buvo parengta grafinė sąsaja, naudojant Vue.js ir Vuetify. Projektas yra pasiekamas saityne, tai buvo atlikta naudojant Azure ir Netlify.
 
