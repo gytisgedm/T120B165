@@ -74,12 +74,61 @@ Asmenų atsakingų už ilgalaikį turtą valdymo langas
 
 # API specifikacija
 
+# POST auth/login
+
+Autorizacija: nėra
+
+Atsako kodai:
+200, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/auth/login?username=employee&password=employee
+
+Atsakymas:
+eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZW1wbG95ZWUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJFbXBsb3llZSIsImV4cCI6MTY3MTM3OTQyNH0.ENgIw2YyTY3kukb6jYKFwqFw3N9kdI0qesvriTZLnjLyrHG6XMjC6xoe1ZEshxxN-fHaAqhkMyS9eOxrSfg5TQ
+
+# POST auth/register
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/auth/register,
+request body:
+```json
+{
+  "name": "employee2",
+  "surname": "employee2",
+  "username": "employee2",
+  "password": "employee2",
+  "isAdmin": false,
+  "department": "department"
+}
+```
+
+Atsakymas:
+```json
+{
+    "name": "employee3",
+    "surname": "employee3",
+    "username": "employee3",
+    "passwordHash": "Fgf93+x1dckRMd3hNHnMZxZNASly9J+IJMgXXIvJZ6N78IdvOIfTnCtawUoVBCJJKRzd9mWYjuOoYVcFz6kzpQ==",
+    "passwordSalt": "YBrgNeQ55qyH4HnVRCc/sh2v9hYEDGnGHwWyRDxSqPCa7bADGwZXaUtn5l2vH8S/ibP5bzuZoWMGPeys3mHaVV9qkAKe5fa8yA8l9a4l+xMedNVZw9x//+nKQRFq0JBI6+XIrHwi+T7oZFHJkOKjk3G4RLB4ZECO265JASzj59k=",
+    "department": "department",
+    "isAdmin": false
+}
+```
+
 # GET employees
 
 Autorizacija: administratorius
 
 Atsako kodai:
-200, 404, 401
+200, 401
 
 Panaudojimo pavyzdys:
 
@@ -111,4 +160,396 @@ Atsakymas:
     }
 ]
 ```
+# GET managers
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401
+
+Panaudojimo pavyzdys:
+
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/managers
+
+Atsakymas:
+
+```json
+[
+    {
+        "username": "famanager",
+        "faCategory": "KOMPIUT"
+    },
+    {
+        "username": "famanager",
+        "faCategory": "MOB"
+    }
+]
+```
+
+# GET employee
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400, 404
+
+Panaudojimo pavyzdys:
+
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/employee/{username}
+
+Atsakymas:
+
+```json
+[
+    {
+        "username": "famanager",
+        "name": "famanager",
+        "surname": "famanager",
+        "department": "department",
+        "isAdmin": false
+    }
+]
+```
+
+# GET fixed-asset
+
+Autorizacija: administratorius, atsakingas už ilgalaikį turtą asmuo
+
+Atsako kodai:
+200, 401, 400, 404
+
+Panaudojimo pavyzdys:
+
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/fixed-asset/{code}
+
+Atsakymas:
+
+```json
+[
+    {
+        "code": "008003",
+        "description": "MacBook Pro13.3 DC i7 2.9GHz/G",
+        "assignedBy": "famanager",
+        "serialNumber": "C02HWVJDDTY3",
+        "boughtAt": "2020-10-01T00:00:00",
+        "eventType": 2
+    }
+]
+```
+
+# GET manager/{username}
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400, 404
+
+Panaudojimo pavyzdys:
+
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/manager/{username}
+
+Atsakymas:
+
+```json
+[
+    {
+        "username": "famanager",
+        "faCategory": "KOMPIUT"
+    }
+]
+```
+
+# GET assigned/{username}
+
+Autorizacija: administratorius, darbuotojas
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/assigned/{username}
+
+Atsakymas:
+
+```json
+[
+    {
+        "code": "008003",
+        "description": "MacBook Pro13.3 DC i7 2.9GHz/G",
+        "assignedBy": "famanager",
+        "serialNumber": "C02HWVJDDTY3",
+        "eventType": 2
+    },
+    {
+        "code": "008015",
+        "description": "Dell Kompiuteris",
+        "assignedBy": "famanager",
+        "serialNumber": "FA15634",
+        "eventType": 1
+    }
+]
+```
+
+# GET managed/{username}
+
+Autorizacija: atsakingas už ilgalaikį turtą asmuo
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/managed/{username}
+
+Atsakymas:
+
+```json
+[
+    {
+        "code": "008003",
+        "description": "MacBook Pro13.3 DC i7 2.9GHz/G",
+        "assignedTo": "employee",
+        "serialNumber": "C02HWVJDDTY3",
+        "boughtAt": "2020-10-01T00:00:00",
+        "eventType": 2
+    },
+    {
+        "code": "008004",
+        "description": "MacBook Pro13.3 DC i7 2.9GHz/G",
+        "assignedTo": null,
+        "serialNumber": "C02HWVJDDTY3",
+        "boughtAt": "2020-10-01T00:00:00",
+        "eventType": 5
+    },
+    {
+        "code": "008015",
+        "description": "Dell Kompiuteris",
+        "assignedTo": "employee",
+        "serialNumber": "FA15634",
+        "boughtAt": null,
+        "eventType": 1
+    }
+]
+```
+# POST fixed-asset
+
+Autorizacija: atsakingas už ilgalaikį turtą asmuo, administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset
+Request body:
+```json
+{
+  "code": "test",
+  "description": "test",
+  "class": "test",
+  "serialNumber": "test",
+  "managedBy": "test"
+}
+```
+
+Atsakymas: 200 OK
+
+# POST manager
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/manager
+Request body:
+```json
+{
+  "username": "string",
+  "faCategory": "string"
+}
+```
+
+Atsakymas: 200 OK
+
+# POST fixed-asset/accept
+
+Autorizacija: administratorius, darbuotojas
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/accept
+Request body:
+```json
+{
+  "code": "008015",
+  "requestedBy": "employee"
+}
+```
+
+Atsakymas: 200 OK
+
+# POST fixed-asset/reject
+
+Autorizacija: administratorius, darbuotojas
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/reject
+Request body:
+```json
+{
+  "code": "008015",
+  "requestedBy": "employee"
+}
+```
+
+Atsakymas: 200 OK
+
+# POST fixed-asset/assign
+
+Autorizacija: asmuo atsakingas už ilgalaikį turtą
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/assign
+Request body:
+{
+  "code": "008015",
+  "assignTo": "employee",
+  "assignedBy": "famanager"
+}
+
+Atsakymas: 200 OK
+
+# POST fixed-asset/store
+
+Autorizacija: asmuo atsakingas už ilgalaikį turtą
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/store
+Request body:
+{
+  "code": "008015",
+  "requestedBy": "famanager"
+}
+
+Atsakymas: 200 OK
+
+# PUT employee
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: PUT https://fixedassetsapi.azurewebsites.net/employee
+Request body:
+{
+  "username": "employee",
+  "isAdmin": "false"
+}
+
+Atsakymas: 200 OK
+
+# PUT fixed-asset
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: PUT https://fixedassetsapi.azurewebsites.net/fixed-asset
+Request body:
+{
+  "code": "015649",
+  "description": "description",
+  "serialNumber": "AKFKSAOFPOIO-9",
+  "class": "MOB"
+}
+
+Atsakymas: 200 OK
+
+# PUT manager
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: PUT https://fixedassetsapi.azurewebsites.net/manager
+Request body:
+{
+  "username": "famanager",
+  "currentCategory": "MOB",
+  "newCategory": "KOMPIUT"
+}
+
+Atsakymas: 200 OK
+
+# DELETE manager
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: DELETE https://fixedassetsapi.azurewebsites.net/manager
+Request body:
+{
+  "username": "famanager",
+  "category": "MOB"
+}
+
+Atsakymas: 200 OK
+
+# DELETE employee/{username}
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: DELETE https://fixedassetsapi.azurewebsites.net/employee/employee2
+
+Atsakymas: 200 OK
+
+# DELETE fixed-asset/{code}
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 401, 400
+
+Panaudojimo pavyzdys:
+
+Užklausa: DELETE https://fixedassetsapi.azurewebsites.net/fixed-asset/008015
+
+Atsakymas: 200 OK
 
