@@ -72,3 +72,43 @@ Asmenų atsakingų už ilgalaikį turtą valdymo langas
 
 ![image](https://user-images.githubusercontent.com/79420546/208239808-59f64d07-b6c8-45cf-bef0-0ac078030bc9.png)
 
+# API specifikacija
+
+# GET employees
+
+Autorizacija: administratorius
+
+Atsako kodai:
+200, 404, 401
+
+Panaudojimo pavyzdys:
+
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/employees
+
+Atsakymas:
+```json
+[
+    {
+        "username": "admin",
+        "name": "admin",
+        "surname": "admin",
+        "department": "IT",
+        "isAdmin": true
+    },
+    {
+        "username": "employee",
+        "name": "Vardas",
+        "surname": "Pavardė",
+        "department": "HR",
+        "isAdmin": false
+    },
+    {
+        "username": "famanager",
+        "name": "famanager",
+        "surname": "famanager",
+        "department": "department",
+        "isAdmin": false
+    }
+]
+```
+
