@@ -11,15 +11,13 @@ Registruoti ilgalaikio turto naudotojus, palengvinti darbuotojų, kurie atsaking
   •		Įprastas darbuotojas
    1.	Peržiūrėti jam priskirtą ilgalaikį turtą.
    2.	Atmesti/patvirtinti jam priskirtą ilgalaikį turtą.
-   3.	Patvirtinti turto grąžinimą.
 
  •		Atsakingas darbuotojas už ilgalaikį turtą
    1.	Peržiūrėti visą turtą už kurį yra atsakingas pagal jam priskirtas ilgalaikio turto kategorijas.
    2.	Priskirti naujus ilgalaikio turto naudotojus.
    3.	Ilgalaikį turtą sandėliuoti.
-   4.	Inicijuoti turto grąžinimą.
-   5.	Ištrinti parduotą ilgalaikį turtą.
-   6.	Pridėti naują ilgalaikį turtą, keisti esamo informaciją.
+   4.	Ištrinti parduotą ilgalaikį turtą.
+   5.	Pridėti naują ilgalaikį turtą, keisti informaciją apie esamą.
  
  •		Sistemos administratorius 
   1.	Sukurti naujus darbuotojus.
@@ -83,7 +81,7 @@ Atsako kodai:
 
 Panaudojimo pavyzdys:
 
-Užklausa: POST https://fixedassetsapi.azurewebsites.net/auth/login?username=employee&password=employee
+Užklausa: POST https://fixedassetsapi.azurewebsites.net/auth/login?username=employee&password=password
 
 Atsakymas:
 eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZW1wbG95ZWUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJFbXBsb3llZSIsImV4cCI6MTY3MTM3OTQyNH0.ENgIw2YyTY3kukb6jYKFwqFw3N9kdI0qesvriTZLnjLyrHG6XMjC6xoe1ZEshxxN-fHaAqhkMyS9eOxrSfg5TQ
@@ -128,7 +126,7 @@ Atsakymas:
 Autorizacija: administratorius
 
 Atsako kodai:
-200, 401
+200, 401, 404
 
 Panaudojimo pavyzdys:
 
@@ -165,7 +163,7 @@ Atsakymas:
 Autorizacija: administratorius
 
 Atsako kodai:
-200, 401
+200, 401, 404
 
 Panaudojimo pavyzdys:
 
@@ -186,7 +184,7 @@ Atsakymas:
 ]
 ```
 
-# GET employee
+# GET employee{username}
 
 Autorizacija: administratorius
 
@@ -195,7 +193,7 @@ Atsako kodai:
 
 Panaudojimo pavyzdys:
 
-Užklausa: GET https://fixedassetsapi.azurewebsites.net/employee/{username}
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/employee/famanager
 
 Atsakymas:
 
@@ -211,7 +209,7 @@ Atsakymas:
 ]
 ```
 
-# GET fixed-asset
+# GET fixed-asset/{code}
 
 Autorizacija: administratorius, atsakingas už ilgalaikį turtą asmuo
 
@@ -220,7 +218,7 @@ Atsako kodai:
 
 Panaudojimo pavyzdys:
 
-Užklausa: GET https://fixedassetsapi.azurewebsites.net/fixed-asset/{code}
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/fixed-asset/008003
 
 Atsakymas:
 
@@ -246,7 +244,7 @@ Atsako kodai:
 
 Panaudojimo pavyzdys:
 
-Užklausa: GET https://fixedassetsapi.azurewebsites.net/manager/{username}
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/manager/famanager
 
 Atsakymas:
 
@@ -264,11 +262,11 @@ Atsakymas:
 Autorizacija: administratorius, darbuotojas
 
 Atsako kodai:
-200, 401, 400
+200, 401, 400, 404
 
 Panaudojimo pavyzdys:
 
-Užklausa: GET https://fixedassetsapi.azurewebsites.net/assigned/{username}
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/assigned/employee
 
 Atsakymas:
 
@@ -296,11 +294,11 @@ Atsakymas:
 Autorizacija: atsakingas už ilgalaikį turtą asmuo
 
 Atsako kodai:
-200, 401, 400
+200, 401, 400, 404
 
 Panaudojimo pavyzdys:
 
-Užklausa: GET https://fixedassetsapi.azurewebsites.net/managed/{username}
+Užklausa: GET https://fixedassetsapi.azurewebsites.net/managed/famanager
 
 Atsakymas:
 
@@ -426,11 +424,13 @@ Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/assign
 Request body:
+```json
 {
   "code": "008015",
   "assignTo": "employee",
   "assignedBy": "famanager"
 }
+```
 
 Atsakymas: 200 OK
 
@@ -445,10 +445,12 @@ Panaudojimo pavyzdys:
 
 Užklausa: POST https://fixedassetsapi.azurewebsites.net/fixed-asset/store
 Request body:
+```json
 {
   "code": "008015",
   "requestedBy": "famanager"
 }
+```
 
 Atsakymas: 200 OK
 
@@ -457,16 +459,18 @@ Atsakymas: 200 OK
 Autorizacija: administratorius
 
 Atsako kodai:
-200, 401, 400
+200, 401, 400, 404
 
 Panaudojimo pavyzdys:
 
 Užklausa: PUT https://fixedassetsapi.azurewebsites.net/employee
+```json
 Request body:
 {
   "username": "employee",
   "isAdmin": "false"
 }
+```
 
 Atsakymas: 200 OK
 
@@ -475,18 +479,20 @@ Atsakymas: 200 OK
 Autorizacija: administratorius
 
 Atsako kodai:
-200, 401, 400
+200, 401, 400, 404
 
 Panaudojimo pavyzdys:
 
 Užklausa: PUT https://fixedassetsapi.azurewebsites.net/fixed-asset
 Request body:
+```json
 {
   "code": "015649",
   "description": "description",
   "serialNumber": "AKFKSAOFPOIO-9",
   "class": "MOB"
 }
+```
 
 Atsakymas: 200 OK
 
@@ -501,11 +507,13 @@ Panaudojimo pavyzdys:
 
 Užklausa: PUT https://fixedassetsapi.azurewebsites.net/manager
 Request body:
+```json
 {
   "username": "famanager",
   "currentCategory": "MOB",
   "newCategory": "KOMPIUT"
 }
+```
 
 Atsakymas: 200 OK
 
@@ -519,11 +527,13 @@ Atsako kodai:
 Panaudojimo pavyzdys:
 
 Užklausa: DELETE https://fixedassetsapi.azurewebsites.net/manager
+```json
 Request body:
 {
   "username": "famanager",
   "category": "MOB"
 }
+```
 
 Atsakymas: 200 OK
 
